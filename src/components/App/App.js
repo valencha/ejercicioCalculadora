@@ -42,6 +42,14 @@ function App() {
     }
     
   }
+
+  function handleEquals (){
+    setResult(operate(result, formulaDisplay.substr(-1),currentDisplay ));
+    setFormulaDisplay('');
+    setCurrentDisplay('0');
+   
+    setIsReady(false);
+  }
   
   return (
     <div className="App">
@@ -73,7 +81,7 @@ function App() {
     <Button type = "controller" value="±" />
     <Button type = "number" onClick= {handleNumber} value="0" />  
     <Button type = "controller" value="," />
-    <Button type = "operation" onClick= {handleOperation} value="=" />
+    <Button type = "operation" onClick= {handleEquals} value="=" />
     </section>
     
     </div>
@@ -96,6 +104,9 @@ function App() {
 
       case '÷':
       return(a / b);
+
+      default:
+        return b;
     
     }
     
