@@ -1,0 +1,22 @@
+*{
+    box-sizing: border-box;
+}
+
+
+.Display{
+    width: 100%;
+    background-color: rgb(92, 92, 92);
+    border: 1px solid black;
+    color: white;
+    padding: 4px;
+    text-align: right;
+    margin-bottom: 2px;
+
+}
+.Display__top{
+    font-size: 18px;
+}
+
+.Display__bottom{
+    font-size: 28px;
+}
