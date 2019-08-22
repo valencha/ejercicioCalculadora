@@ -24,6 +24,9 @@ function App() {
   }
   
   function handleOperation(operation){
+    if(formulaDisplay === '' && result !== false){
+      setFormulaDisplay(result + operation);
+    }
     // solo si estamos listos para operar
     if(isReady){
       // concatenamos la operacion anterior con la siguiente
@@ -31,8 +34,10 @@ function App() {
       
       if(result === false){
         setResult(parseFloat(currentDisplay));
+      
       }else{
         setResult(operate(result, formulaDisplay.substr(-1),currentDisplay ));
+       
       }
       
       // devolvemos el valor del display 0
@@ -40,6 +45,9 @@ function App() {
       //avisamos que no estamos listos
       setIsReady(false);
     }
+    
+      
+    
     
   }
 
@@ -49,6 +57,10 @@ function App() {
     setCurrentDisplay('0');
    
     setIsReady(false);
+  }
+
+  function handleDelete(){
+    
   }
   
   return (
