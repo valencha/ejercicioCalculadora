@@ -10,6 +10,8 @@ function App() {
   const [ formulaDisplay, setFormulaDisplay] = React.useState('');
   const [ isReady, setIsReady] = React.useState(true);
   const [ result, setResult] = React.useState(false);
+  
+  
   function handleNumber(number){
     //si solo hay cero en el current 
     if ( currentDisplay === '0'){
@@ -34,10 +36,10 @@ function App() {
       
       if(result === false){
         setResult(parseFloat(currentDisplay));
-      
+        
       }else{
         setResult(operate(result, formulaDisplay.substr(-1),currentDisplay ));
-       
+        
       }
       
       // devolvemos el valor del display 0
@@ -46,23 +48,52 @@ function App() {
       setIsReady(false);
     }
     
-      
+    
     
     
   }
-
+  
   function handleEquals (){
     setResult(operate(result, formulaDisplay.substr(-1),currentDisplay ));
     setFormulaDisplay('');
     setCurrentDisplay('0');
-   
+    
     setIsReady(false);
   }
-
-  function handleDelete(){
+  
+  function handleDeleteCurrent(controller){ 
+    setCurrentDisplay('0');
     
   }
   
+  function handleDeleteAll(controller){ 
+    setCurrentDisplay('0');
+    setFormulaDisplay('');
+    
+  }
+  
+  function handleDeleteDigit(controller){ 
+    setCurrentDisplay(currentDisplay.slice(0 ,-1));
+    if ( currentDisplay.length <= 1){
+      setCurrentDisplay('0');
+      
+    }
+    
+  }
+  
+  function handleChangeSign(controller){ 
+    //Se utliza como caracter en el lugar se agrega si no lo tiene y se le quita
+    if(currentDisplay.charAt(0) === '-'){
+      setCurrentDisplay(currentDisplay.substr(1));
+    }else {
+      setCurrentDisplay('-'+currentDisplay);
+    }
+    
+  }
+  
+  function handleAddPoint(controller){
+    setCurrentDisplay(currentDisplay+ '.');
+  }
   return (
     <div className="App">
     <Display
@@ -70,9 +101,9 @@ function App() {
     />
     
     <section className="Keyboard">
-    <Button type = "controller" value="CE" />
-    <Button type = "controller" value="C" />
-    <Button type = "controller" value="←" />
+    <Button type = "controller" onClick= {handleDeleteCurrent} value="CE" />
+    <Button type = "controller" onClick= {handleDeleteAll} value="C" />
+    <Button type = "controller" onClick= {handleDeleteDigit}value="←" />
     <Button type = "operation" onClick= {handleOperation}  value="÷" />
     
     <Button type = "number" onClick= {handleNumber} value="7" />
@@ -90,9 +121,9 @@ function App() {
     <Button type = "number" onClick= {handleNumber} value="3" />
     <Button type = "operation" onClick= {handleOperation} value="+" />
     
-    <Button type = "controller" value="±" />
+    <Button type = "controller"  onClick= {handleChangeSign} value="±" />
     <Button type = "number" onClick= {handleNumber} value="0" />  
-    <Button type = "controller" value="," />
+    <Button type = "controller" onClick= {handleAddPoint} value="," />
     <Button type = "operation" onClick= {handleEquals} value="=" />
     </section>
     
@@ -110,16 +141,16 @@ function App() {
       
       case 'X':
       return(a * b);
-    
+      
       case '-':
       return(a - b);
-
+      
       case '÷':
       return(a / b);
-
+      
       default:
-        return b;
-    
+      return b;
+      
     }
     
     
